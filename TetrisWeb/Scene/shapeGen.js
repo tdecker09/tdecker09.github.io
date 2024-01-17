@@ -43,9 +43,3 @@ let SHAPES =  [
      1, 1, 0]
 ]
 
-const shape = {
-    x: 5,
-    y: 0,
-    <!-- randomly select a shape from SHAPES array -->
-    type: (Math.random() * 6),
-}

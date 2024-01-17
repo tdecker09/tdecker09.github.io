@@ -1,5 +1,5 @@
 let board; // array for canvas
-let graphic; // ?
+let graphic; // ? ctx in guide
 let canvas;
 
 //for keyboard presses
@@ -33,9 +33,23 @@ document.addEventListener('keydown', keyPress);
         return board[x][y] === 1;
     }
 
-    function drawShape(shape) {
-        // graphically draws shape to canvas based on location on board
-        // this method is supposed to have shape object param from shapeGen class !-->
+    //make an individual shape object
+    let shapeObj = {
+        x: 3,
+        y: 0,
+
+        //randomly select a shape from SHAPES array
+        typeIndex: (Math.random() * 6),
+
+        shapeType : SHAPES[shapeObj.typeIndex],
+    }
+
+    // graphically draws shape to canvas based on location on board
+    function drawShape() {
+
+        curShape = shapeObj; //assign curShape to a shapeObj
+
+
 
 // LEFT OFF HERE: GET SHAPE OBJECT FROM SHAPEGEN CLASS, ACCESS ITS ARRAY FOR SHAPE STRUCTURE
 
@@ -45,11 +59,31 @@ document.addEventListener('keydown', keyPress);
         //graphic.fillStyle = [color]
         //graphic.fillRect(x, y, [int], [int])
 
+        //start building shape in middle top of board
+        let boardRow, shapeRow, col;
 
+        for(col = 0; col < 3; col++) {
+            for(shapeRow = 0; shapeRow < 3; shapeRow++) {
+                boardRow = shapeRow + 3;
+
+                board[boardRow][col] = curShape.shapeType[shapeRow][col]; //transfer shape array onto board array
+
+                //graphically draw board
+                graphic.fillStyle = "blue";
+                graphic.fillRect(boardRow, col, 15, 15);
+            }
+        }
     }
 
     function keyPress() {
 
 }
+
+function load() {
+        drawShape();
+}
+
+window.onload = load();
+
 
 
