@@ -1,6 +1,7 @@
 let board; // array for canvas
-let graphic; // ? ctx in guide
-let canvas;
+var ctx; // ? ctx in guide
+var canvas;
+var shapeObj;
 
 //for keyboard presses
 document.addEventListener('keydown', keyPress);
@@ -12,17 +13,16 @@ document.addEventListener('keydown', keyPress);
         let columns = 20;
 
         for(let r = 0; r < rows; r++) {
-            board[i] = [];
+            board[r] = [];
             for(let c = 0; c < columns; c++) {
                 board[r][c] = c;
             }
         }
 
         //make canvas
-        canvas = document.getElementById('my-canvas');
-        graphic = canvas.getContext('2d')
-        //canvas.width =
-        //canvas.height =
+        canvas = document.getElementById('canvas');
+        ctx = canvas.getContext("2d")
+        ctx.moveTo(0,0)
 
 
 
@@ -34,20 +34,14 @@ document.addEventListener('keydown', keyPress);
     }
 
     //make an individual shape object
-    let shapeObj = {
-        x: 3,
-        y: 0,
 
-        //randomly select a shape from SHAPES array
-        typeIndex: (Math.random() * 6),
 
-        shapeType : SHAPES[shapeObj.typeIndex],
-    }
 
     // graphically draws shape to canvas based on location on board
     function drawShape() {
+        ctx.fillStyle = "rgb(200 0 0)";
 
-        curShape = shapeObj; //assign curShape to a shapeObj
+        var curShape = shapeObj; //assign curShape to a shapeObj
 
 
 
@@ -60,8 +54,8 @@ document.addEventListener('keydown', keyPress);
         //graphic.fillRect(x, y, [int], [int])
 
         //start building shape in middle top of board
-        let boardRow, shapeRow, col;
-
+        var boardRow, shapeRow, col;
+    ctx.fillText(shapeObj.shapeType, 20, 20);
         for(col = 0; col < 3; col++) {
             for(shapeRow = 0; shapeRow < 3; shapeRow++) {
                 boardRow = shapeRow + 3;
@@ -69,8 +63,10 @@ document.addEventListener('keydown', keyPress);
                 board[boardRow][col] = curShape.shapeType[shapeRow][col]; //transfer shape array onto board array
 
                 //graphically draw board
-                graphic.fillStyle = "blue";
-                graphic.fillRect(boardRow, col, 15, 15);
+                ctx.fillStyle = "blue";
+                //if statement -> if index is true put a square
+                ctx.fillStyle = "rgb(200 0 0)";
+                ctx.fillRect(50*boardRow, 50*col, 50, 50);
             }
         }
     }
@@ -80,6 +76,18 @@ document.addEventListener('keydown', keyPress);
 }
 
 function load() {
+    shapeObj = {
+        x: 3,
+        y: 0,
+
+        //randomly select a shape from SHAPES array
+        typeIndex: Math.round(Math.random() * 6),
+
+        shapeType : null,
+    }
+
+    shapeObj.shapeType = SHAPES[shapeObj.typeIndex];
+        setup();
         drawShape();
 }
 
