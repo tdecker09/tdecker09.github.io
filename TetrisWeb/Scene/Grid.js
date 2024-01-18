@@ -39,7 +39,7 @@ document.addEventListener('keydown', keyPress);
 
     // graphically draws shape to canvas based on location on board
     function drawShape() {
-        ctx.fillStyle = "rgb(200 0 0)";
+
 
         var curShape = shapeObj; //assign curShape to a shapeObj
 
@@ -65,8 +65,13 @@ document.addEventListener('keydown', keyPress);
                 //graphically draw board
                 ctx.fillStyle = "blue";
                 //if statement -> if index is true put a square
-                ctx.fillStyle = "rgb(200 0 0)";
-                ctx.fillRect(50*boardRow, 50*col, 50, 50);
+
+                var test = true;
+                if(board[boardRow][col] === 1) {
+                    ctx.fillStyle = "rgb(200 0 0)";
+                    ctx.fillRect(50*boardRow, 50*col, 50, 50);
+                }
+
             }
         }
     }
