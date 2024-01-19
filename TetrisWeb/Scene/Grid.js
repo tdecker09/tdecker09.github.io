@@ -41,7 +41,7 @@ document.addEventListener('keydown', keyPress);
     function drawShape() {
 
 
-        var curShape = shapeObj; //assign curShape to a shapeObj
+        let curShape = shapeObj; //assign curShape to a shapeObj
 
 
 
@@ -55,21 +55,31 @@ document.addEventListener('keydown', keyPress);
 
         //start building shape in middle top of board
         var boardRow, shapeRow, col;
-    ctx.fillText(shapeObj.shapeType, 20, 20);
-        for(col = 0; col < 3; col++) {
+    ctx.fillText(shapeObj.typeIndex.toString(), 20, 20);
+        for(col = 1; col < 3; col++) {
             for(shapeRow = 0; shapeRow < 3; shapeRow++) {
                 boardRow = shapeRow + 3;
+
+
 
                 board[boardRow][col] = curShape.shapeType[shapeRow][col]; //transfer shape array onto board array
 
                 //graphically draw board
-                ctx.fillStyle = "blue";
+                // ctx.fillStyle = "blue";
                 //if statement -> if index is true put a square
 
                 var test = true;
-                if(board[boardRow][col] === 1) {
-                    ctx.fillStyle = "rgb(200 0 0)";
+                if(board[shapeRow][col] === 1) {
+
+
+
+                    ctx.fillStyle = "rgb(0 100 0)";
+
+
                     ctx.fillRect(50*boardRow, 50*col, 50, 50);
+
+                    ctx.fillText(col, 50*boardRow + 20*col, 10);
+
                 }
 
             }
@@ -92,8 +102,9 @@ function load() {
     }
 
     shapeObj.shapeType = SHAPES[shapeObj.typeIndex];
-        setup();
-        drawShape();
+
+    setup();
+    drawShape();
 }
 
 window.onload = load();
