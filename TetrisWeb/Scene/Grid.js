@@ -43,21 +43,8 @@ document.addEventListener('keydown', keyPress);
 
         let curShape = shapeObj; //assign curShape to a shapeObj
 
-
-
-// LEFT OFF HERE: GET SHAPE OBJECT FROM SHAPEGEN CLASS, ACCESS ITS ARRAY FOR SHAPE STRUCTURE
-
-        //go through array, add element to correct spot on game array
-
-        //draw square at x + y coord on canvas
-        //graphic.fillStyle = [color]
-        //graphic.fillRect(x, y, [int], [int])
-
         //start building shape in middle top of board
         let boardRow, shapeRow, col;
-
-
-
 
         for(col = 0; col < 3; col++) {
             for(shapeRow = 0; shapeRow < 3; shapeRow++) {
@@ -70,31 +57,27 @@ document.addEventListener('keydown', keyPress);
                 //if statement -> if index is true put a square
 
                 ctx.fillStyle = "rgba(0,100,72,0.47)";
-                ctx.fillRect(50*boardRow, 50*col, 50, 50);
+                ctx.fillRect(50*boardRow, 50*col, 50, 50);//full box around shape
 
 
+                ctx.fillText(shapeObj.typeIndex.toString(), 20, 20);//test
 
 
+                ctx.fillStyle = "rgb(0 100 0)";
 
-                    ctx.fillText(shapeObj.shapeType.toString(), 20, 20);//test
+                for(let r = 0; r < 3; r ++) {
+                    for(let c = 0; c < 3; c ++) {
+                        if(shapeObj.shapeType[r][c]) {
 
+                            //graphically put shape on the canvas
+                            // ctx.fillText(shapeObj.shapeType[r][c], 20+10*c, 100+50*r);
+                            ctx.fillRect(50*(c+3), 50*r, 50, 50);
 
-                    ctx.fillStyle = "rgb(0 100 0)";
-
-                    for(let r = 0; r < 3; r ++) {
-                        for(let c = 0; c < 3; c ++) {
-                            if(shapeObj.shapeType[r][c]) {
-
-                                //graphically put shape on the canvas
-                                ctx.fillRect(50*(c+3), 50*r, 50, 50);
-                                ctx.fillText(shapeObj.shapeType[r][c], 20+10*c, 100+50*r);
-                                ctx.fillText(col, 50*boardRow + 20*col, 10);
-
-                                //put shape on bard array
-                                board[r][c+3] = 1;
-                            }
+                            //put shape on board array
+                            board[r][c+3] = 1;
                         }
                     }
+                }
             }
         }
     }
