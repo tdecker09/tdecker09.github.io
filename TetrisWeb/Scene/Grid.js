@@ -50,14 +50,11 @@ document.addEventListener('keydown', keyPress);
             for(shapeRow = 0; shapeRow < 3; shapeRow++) {
                 boardRow = shapeRow + 3;
 
-
-
                 board[boardRow][col] = curShape.shapeType[shapeRow][col]; //transfer shape array onto board array
 
-                //if statement -> if index is true put a square
 
-                ctx.fillStyle = "rgba(0,100,72,0.47)";
-                ctx.fillRect(50*boardRow, 50*col, 50, 50);//full box around shape
+                // ctx.fillStyle = "rgba(0,100,72,0.47)";
+                // ctx.fillRect(50*boardRow, 50*col, 50, 50);//full box around shape
 
 
                 ctx.fillText(shapeObj.typeIndex.toString(), 20, 20);//test
@@ -82,8 +79,18 @@ document.addEventListener('keydown', keyPress);
         }
     }
 
-    function keyPress() {
+function keyPress(key) {
+        if(key.keyCode === 37) { //when left arrow is pressed
+            shapeObj.x = shapeObj.x - 3;
+            console.log(shapeObj.x);
 
+            drawShape();
+        }
+
+        if(key.keyCode === 39) {
+            shapeObj.x = shapeObj.x + 3;
+            console.log(shapeObj.x);
+        }
 }
 
 function load() {
@@ -102,6 +109,9 @@ function load() {
 
     setup();
     drawShape();
+
+
+    console.log(shapeObj.x);
 }
 
 window.onload = load();
