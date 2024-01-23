@@ -72,33 +72,29 @@ document.addEventListener('keydown', keyPress);
                 ctx.fillStyle = "rgba(0,100,72,0.47)";
                 ctx.fillRect(50*boardRow, 50*col, 50, 50);
 
-                var test = true;
-                // if(board[shapeRow][col] === 1) {
 
 
-                    ctx.fillText(col, 300, 20);
-                    ctx.fillText(shapeObj.typeIndex.toString(), 20, 20);//test
+
+
+                    ctx.fillText(shapeObj.shapeType.toString(), 20, 20);//test
 
 
                     ctx.fillStyle = "rgb(0 100 0)";
 
+                    for(let r = 0; r < 3; r ++) {
+                        for(let c = 0; c < 3; c ++) {
+                            if(shapeObj.shapeType[r][c]) {
 
-                    ctx.fillRect(50*boardRow, 50*col, 50, 50);
+                                //graphically put shape on the canvas
+                                ctx.fillRect(50*(c+3), 50*r, 50, 50);
+                                ctx.fillText(shapeObj.shapeType[r][c], 20+10*c, 100+50*r);
+                                ctx.fillText(col, 50*boardRow + 20*col, 10);
 
-                    ctx.fillText(col, 50*boardRow + 20*col, 10);
-
-                    // let c = 0;
-                    // for(let r = 0; r < 9; r++) {
-                    //     if(r > 3) {
-                    //         c = 1;
-                    //
-                    //         if(r > 6) {
-                    //             c = 2
-                    //         }
-                    //     }
-                    //     ctx.fillText(, r * 20, 200 + (20* c))
-                    //}
-
+                                //put shape on bard array
+                                board[r][c+3] = 1;
+                            }
+                        }
+                    }
             }
         }
     }
@@ -113,14 +109,13 @@ function load() {
         y: 0,
 
         //randomly select a shape from SHAPES array
-        // typeIndex: Math.round(Math.random() * 6),
-        typeIndex: 0,
+        typeIndex: Math.round(Math.random() * 6),
 
 
         shapeType: null,
     }
 
-    shapeObj.shapeType =  SHAPES[2];//array
+    shapeObj.shapeType =  SHAPES[shapeObj.typeIndex];//array
 
     setup();
     drawShape();
