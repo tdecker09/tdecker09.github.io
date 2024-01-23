@@ -1,7 +1,7 @@
 let board; // array for canvas
-var ctx; // ? ctx in guide
-var canvas;
-var shapeObj;
+let ctx; // ? ctx in guide
+let canvas;
+let shapeObj;
 
 //for keyboard presses
 document.addEventListener('keydown', keyPress);
@@ -87,14 +87,17 @@ document.addEventListener('keydown', keyPress);
 
                     ctx.fillText(col, 50*boardRow + 20*col, 10);
 
-                    let c = 0;
-                    for(let r = 0; r < 9; r++) {
-                        if(r / 3 === 0) {
-                            c ++;
-                            ctx.fillText(String.format(curShape.shapeType[r]), r * 20, 300 + (c * 20))
-                        }
-                    }
-
+                    // let c = 0;
+                    // for(let r = 0; r < 9; r++) {
+                    //     if(r > 3) {
+                    //         c = 1;
+                    //
+                    //         if(r > 6) {
+                    //             c = 2
+                    //         }
+                    //     }
+                    //     ctx.fillText(, r * 20, 200 + (20* c))
+                    //}
 
             }
         }
@@ -114,10 +117,10 @@ function load() {
         typeIndex: 0,
 
 
-        shapeType: SHAPES[1],//array
+        shapeType: null,
     }
 
-
+    shapeObj.shapeType =  SHAPES[2];//array
 
     setup();
     drawShape();
