@@ -62,21 +62,26 @@ document.addEventListener('keydown', keyPress);
 
                 ctx.fillStyle = "rgb(0 100 0)";
 
-                for(let r = 0; r < 3; r ++) {
+                for(let r = 0; r < 3; r ++) {//shapeObj.x, y
                     for(let c = 0; c < 3; c ++) {
                         if(shapeObj.shapeType[r][c]) {
 
                             //graphically put shape on the canvas
                             // ctx.fillText(shapeObj.shapeType[r][c], 20+10*c, 100+50*r);
-                            ctx.fillRect(50*(c+3), 50*r, 50, 50);
+                            ctx.fillRect(50*(shapeObj.x), 50*(shapeObj.x + 1), 50, 50);
 
                             //put shape on board array
                             board[r][c+3] = 1;
+
+
                         }
                     }
                 }
+
             }
         }
+        console.log(shapeObj.x);
+        console.log(shapeObj.y);
     }
 
 function keyPress(key) {
@@ -111,7 +116,7 @@ function load() {
     drawShape();
 
 
-    console.log(shapeObj.x);
+    // console.log(shapeObj.x);
 }
 
 window.onload = load();
