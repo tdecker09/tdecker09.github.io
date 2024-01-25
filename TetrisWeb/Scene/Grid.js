@@ -62,40 +62,69 @@ document.addEventListener('keydown', keyPress);
 
                 ctx.fillStyle = "rgb(0 100 0)";
 
-                for(let r = 0; r < 3; r ++) {//shapeObj.x, y
-                    for(let c = 0; c < 3; c ++) {
-                        if(shapeObj.shapeType[r][c]) {
 
-                            //graphically put shape on the canvas
-                            // ctx.fillText(shapeObj.shapeType[r][c], 20+10*c, 100+50*r);
-                            ctx.fillRect(50*(shapeObj.x), 50*(shapeObj.x + 1), 50, 50);
-
-                            //put shape on board array
-                            board[r][c+3] = 1;
-
-
-                        }
-                    }
-                }
 
             }
         }
-        console.log(shapeObj.x);
-        console.log(shapeObj.y);
+        for(let r = 0; r < 3; r ++) {//shapeObj.x, y
+            for(let c = 0; c < 3; c ++) {
+                if(shapeObj.shapeType[r][c]) {
+
+                    //graphically put shape on the canvas
+                    // ctx.fillText(shapeObj.shapeType[r][c], 20+10*c, 100+50*r);
+                    ctx.fillRect(50*(shapeObj.x+c), 50*(shapeObj.y +r), 50, 50);
+
+                    //put shape on board array
+                    board[r][c+3] = 1;
+
+
+                }
+            }
+        }
+        // console.log(shapeObj.x);
+        // console.log(shapeObj.y);
     }
 
+function deleteShape() {
+        for(let x = shapeObj.x; x < shapeObj.x+3; x ++) {
+            for(let y = shapeObj.y; y < shapeObj.y+3; y ++) {
+                ctx.fillStyle = "rgb(211,211,211)"; //set to light grey
+                ctx.fillRect(50* x, 50*y, 50, 50);//full box around shape
+
+                board[shapeObj.x][shapeObj.y] = 0;
+            }
+        }
+
+
+}
+
 function keyPress(key) {
-        if(key.keyCode === 37) { //when left arrow is pressed
-            shapeObj.x = shapeObj.x - 3;
-            console.log(shapeObj.x);
+    if(key.keyCode === 37) { //when left arrow is pressed
+        deleteShape();
 
-            drawShape();
-        }
+        shapeObj.x = shapeObj.x - 1;
+        console.log(shapeObj.x + " , " + shapeObj.y);
 
-        if(key.keyCode === 39) {
-            shapeObj.x = shapeObj.x + 3;
-            console.log(shapeObj.x);
-        }
+        drawShape();
+    }
+
+    if(key.keyCode === 39) { //right arrow
+        deleteShape();
+
+        shapeObj.x = shapeObj.x + 1;
+        console.log(shapeObj.x + " , " + shapeObj.y);
+
+        drawShape();
+    }
+
+    if(key.keyCode === 40) { //down arrow
+        deleteShape();
+
+        shapeObj.y = shapeObj.y + 1;
+        console.log(shapeObj.x + " , " + shapeObj.y);
+
+        drawShape();
+    }
 }
 
 function load() {
