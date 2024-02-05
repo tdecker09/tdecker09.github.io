@@ -62,6 +62,8 @@ document.addEventListener('keydown', keyPress);
 
                 ctx.fillStyle = "rgb(0 100 0)";
 
+                printBoard();
+
 
 
             }
@@ -94,27 +96,44 @@ function deleteShape() {
                 board[shapeObj.x][shapeObj.y] = 0;
             }
         }
+}
 
+//return max and min x values for piece to stay in bounds
+function horizCollision(shapeType) {
 
+}
+
+function printBoard() {
+        for(let r = 0; r < 20; r ++) {
+            for(let c = 0; c < 10; c++) {
+                console.log(board[r][c] + " ");
+                console.log();
+            }
+        }
 }
 
 function keyPress(key) {
     if(key.keyCode === 37) { //when left arrow is pressed
-        deleteShape();
+        if(shapeObj.x > 0) { //keep in bounds
+            deleteShape();
 
-        shapeObj.x = shapeObj.x - 1;
-        console.log(shapeObj.x + " , " + shapeObj.y);
+            shapeObj.x = shapeObj.x - 1;
+            console.log(shapeObj.x + " , " + shapeObj.y);
 
-        drawShape();
+            drawShape();
+        }
+
     }
 
     if(key.keyCode === 39) { //right arrow
-        deleteShape();
+        if(shapeObj.x < 7) { //keep in bounds
+            deleteShape();
 
-        shapeObj.x = shapeObj.x + 1;
-        console.log(shapeObj.x + " , " + shapeObj.y);
+            shapeObj.x = shapeObj.x + 1;
+            console.log(shapeObj.x + " , " + shapeObj.y);
 
-        drawShape();
+            drawShape();
+        }
     }
 
     if(key.keyCode === 40) { //down arrow
