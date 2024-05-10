@@ -1,3 +1,3 @@
 function buttonPress() {
-    window.location = "index.html";
+    window.location = "Scene/index.html";
 }

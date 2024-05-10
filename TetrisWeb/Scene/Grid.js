@@ -2,18 +2,31 @@ let board; // array for canvas
 let ctx; // ? ctx in guide
 let canvas;
 let shapeObj;
+let stoppedShapes; //array for stopped shapes
 
+let rows = 10;
+let columns = 20;
 
 function setup() {
     //create 10x20 array, piece location
     board = [];
-    let rows = 10;
-    let columns = 20;
 
+
+    //array with moving shape
     for (let r = 0; r < rows; r++) {
         board[r] = [];
         for (let c = 0; c < columns; c++) {
             board[r][c] = c;
+        }
+    }
+
+    stoppedShapes = [];
+
+    //stopped shape array
+    for (let r = 0; r < rows; r++) {
+        stoppedShapes[r] = 0;
+        for(let c = 0; c < columns; c++) {
+            stoppedShapes[r][c] = 0;
         }
     }
 
@@ -22,7 +35,7 @@ function setup() {
     ctx = canvas.getContext("2d")
     ctx.moveTo(0, 0)
 
-
+    // printArray();
 }
 
 function isFilled(x, y) {
@@ -76,6 +89,21 @@ function drawShape() {
     }
     // console.log(shapeObj.x);
     // console.log(shapeObj.y);
+
+    //put dropping shape on the board array
+    for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) { //array for board
+
+            for (let Sr = 0; Sr < 3; Sr++) {
+                for (let Sc = 0; Sc < 3; Sc++) {
+                    if(board[Sr][Sc] === 1) {
+                        board[r][c] = 1;
+                    }
+                }
+            }
+
+        }
+    }
 }
 
 function deleteShape() {
@@ -89,14 +117,52 @@ function deleteShape() {
     }
 }
 
+//adds current shape to board
+//checks shape type
+//x, y represents upper left corner
+//places shape based on shape type
+function addBoard(x, y) {
+    for(let sy = 0; sy <= 3; sy++) {
+        for(let sx = 0; sx <= 3; sx++) {
+            if(shapeObj[sy][sx] === 1) {
+                board[x][y] = 1;
+                x++;
+            }
+            y++;
+        }
+    }
+}
 
-//return max and min x values for piece to stay in bounds
-function horizCollision() {
+function printArray () {
+    let table;
+    for (let r = 0; r < 10; r++) {
+        table = board[r][1];
+        document.getElementById("nextPiece").innerHTML = table;
+    }
+}
+
+function VertCollision() {
 
 }
 
+
+//return max and min x values for piece to stay in bounds
+function horizCollision(x, y, n) { //returns true if collision is present
+
+    for(let sy = y = 0; sy <= 3; sy++) {
+        for (let sx = x = 0; sx <= 3; sx++) {
+            if (board[sx][sy] === 1) {
+                if(board[sx + n][sy] === 1 || board[sx + n][sy] === 0 || board[sx + n][sy] === 10 ) {
+                    return true;
+                }
+                return false;
+            }
+        }
+    }
+}
+
 function keyPress(key) {
-    if (key.keyCode === 37) { //when left arrow is pressed
+    if (key.keyCode === 37 || horizCollision(shapeObj.x, shapeObj.y,-1)) { //when left arrow is pressed
         if (shapeObj.typeIndex === 0) { //straight
             console.log("test");
             if (shapeObj.x > -1) {
@@ -120,7 +186,7 @@ function keyPress(key) {
         }
     }
 
-    if (key.keyCode === 39) { //right arrow
+    if (key.keyCode === 39 || horizCollision(shapeObj.x, shapeObj.y,1)) { //right arrow
 
         if (shapeObj.typeIndex === 6 || shapeObj.typeIndex === 2 || shapeObj.typeIndex === 0) { //if shape is square (6), J (2) or straight (0)
             if (shapeObj.x < 8) { //keep in bounds
