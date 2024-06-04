@@ -4,8 +4,8 @@ let canvas;
 let shapeObj;
 let stoppedShapes; //array for stopped shapes
 
-let rows = 10;
-let columns = 20;
+let rows = 20;
+let columns = 10;
 
 function setup() {
     //create 10x20 array, piece location
@@ -141,16 +141,22 @@ function printArray () {
     }
 }
 
-function VertCollision() {
+function addToArray() {
 
+}
+
+function VertCollision() {
+    if(shapeObj.y === 20) { //if current piece reaches bottom of screen
+
+    }
 }
 
 
 //return max and min x values for piece to stay in bounds
 function horizCollision(x, y, n) { //returns true if collision is present
 
-    for(let sy = y = 0; sy <= 3; sy++) {
-        for (let sx = x = 0; sx <= 3; sx++) {
+    for(let sy = y; sy <= 3; sy++) {
+        for (let sx = x ; sx <= 3; sx++) {
             if (board[sx][sy] === 1) {
                 if(board[sx + n][sy] === 1 || board[sx + n][sy] === 0 || board[sx + n][sy] === 10 ) {
                     return true;
@@ -162,7 +168,7 @@ function horizCollision(x, y, n) { //returns true if collision is present
 }
 
 function keyPress(key) {
-    if (key.keyCode === 37 || horizCollision(shapeObj.x, shapeObj.y,-1)) { //when left arrow is pressed
+    if (key.keyCode === 37 ) { //when left arrow is pressed
         if (shapeObj.typeIndex === 0) { //straight
             console.log("test");
             if (shapeObj.x > -1) {
@@ -186,7 +192,7 @@ function keyPress(key) {
         }
     }
 
-    if (key.keyCode === 39 || horizCollision(shapeObj.x, shapeObj.y,1)) { //right arrow
+    if (key.keyCode === 39) { //right arrow
 
         if (shapeObj.typeIndex === 6 || shapeObj.typeIndex === 2 || shapeObj.typeIndex === 0) { //if shape is square (6), J (2) or straight (0)
             if (shapeObj.x < 8) { //keep in bounds
